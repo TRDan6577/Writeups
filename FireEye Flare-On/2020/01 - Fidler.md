@@ -1,15 +1,17 @@
 # Challenge 1 - Fidler
 > Welcome to the Seventh Flare-On Challenge!
+>
 > This is a simple game. Win it by any means necessary and the victory screen will reveal the flag. Enter the flag here on this site to score and move on to the next level.
+>
 > This challenge is written in Python and is distributed as a runnable EXE and matching source code for your convenience. You can run the source code directly on any Python platform with PyGame if you would prefer.
 
 Fantastic! The source code is provided to us in Python. Let's take a look at fidler.py for the flag.
 
-![1.1.jpg](https://imgur.com/1ZxAvI6)
+![1.1.jpg](https://imgur.com/1ZxAvI6.jpg)
 
 This function seems promising! Backtracing through the code to see where it's called, we can see a possible call stack of: `game_screen() --> victory_screen(int(current_coins / 10**8)) --> decode_flag(token)`
 
-![1.2.jpg](https://imgur.com/K8B1GSM)
+![1.2.jpg](https://imgur.com/K8B1GSM.jpg)
 
 In order to call `victory_screen()` from `game_screen()`, we need to reach the target amount of coins. `current_coins` is passed from `game_screen()` all the way to `decode_flag()` as the token without any modification. It looks like we can reach `victory_screen()` by reaching the target amount (though theoretically due to rounding, `int(current_coins/10**8)` just needs to equal 1030). Using the following code, we can set our wealth arbitrarily (the IRL dream) and extract the flag:
 
